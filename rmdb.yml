@@ -1,0 +1,8 @@
+---
+ - hosts: aws
+   become: true
+   tasks:
+    - name: instlling the mariadb 
+      yum:
+        name: mariadb-server
+        state: absent

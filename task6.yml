@@ -1,0 +1,21 @@
+---
+- hosts: 13.233.68.93
+  become: true
+  tasks:
+    - import_tasks: db.yml
+      register: result
+    - name: error msg
+      debug:
+         msg: "Database is configured"      
+      when: result.rc == 0
+  handlers: 
+    - name: install httpd server
+      yum:
+        name: httpd
+        state: latest 
+        
+    - name: html file
+      copy: 
+        content: "<h1> HELLO IMPORT </h1>"
+        dest: /var/www/html/check.html
+

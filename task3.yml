@@ -1,0 +1,43 @@
+--- 
+- hosts: aws
+  remote_user: devops
+  become: true
+  vars:
+     - x: httpd
+     - y: firewalld
+     - z: php
+  tasks: 
+   - name: installing packages
+     yum:
+       name: httpd
+       state: latest
+   - name: installing packages
+     yum:
+       name: firewalld
+       state: latest
+   - name: installing php
+     yum:
+       name: php
+       state: latest
+   - name: starting and enbling service 
+     service:
+        name: httpd
+        state: reloaded    
+
+   - name: starting and enbling service 
+     service:
+        name: firewalld
+        state: reloaded  
+
+   - name: copy php page
+     copy:
+       content: "<h1> HELLO </h1>"
+       dest: /var/www/html/index.php
+  
+   - name: to ensure firewalld is configured
+     firewalld:
+        service: php
+        permanent: yes
+        immediate: yes
+        state: enabled
+    

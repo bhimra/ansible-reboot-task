@@ -1,0 +1,12 @@
+---
+ - hosts: aws
+   become: true
+   tasks:
+     - name: checking version of python used by ansible
+       debug: 
+         msg: the version of python used by ansible is "{{ ansible_facts.python_version  }} "
+     - name: storing the output python version in file
+       copy:
+          content: the version of python used by ansible is "{{ ansible_facts.python_version  }} "
+          dest: /home/python-ver.txt
+     

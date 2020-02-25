@@ -1,0 +1,16 @@
+    - name: instlling the mariadb 
+      yum:
+        name: mariadb-server
+        state: latest 
+    
+    - name: starting the service of mariadb 
+      service: 
+        name: mariadb
+        state: started
+        enabled: yes  
+      register: changed
+
+      notify:
+          - install httpd server
+          - html file
+  
